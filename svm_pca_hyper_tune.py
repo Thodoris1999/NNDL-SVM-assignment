@@ -35,7 +35,7 @@ def main(args):
     optimization_dur = time.time()-start
     joblib.dump(clf, args.model_name)
 
-    accuracy, precisions, recalls, cm, test_dur = utils.eval_sklearn_clf(clf, test_images, test_labels)
+    accuracy, precisions, recalls, cm, cm_examples, test_dur = utils.eval_sklearn_clf(clf, test_images, test_labels)
     best_pipe = clf.best_estimator_
     best_pca = best_pipe['reduce_dim']
     print(f"PCA number of components at {100*pca_variance}% variance: {best_pca.n_components_}")

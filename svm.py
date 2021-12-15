@@ -22,7 +22,7 @@ def main(args):
     train_dur = time.time()-start
     joblib.dump(clf, args.model_name)
 
-    accuracy, precisions, recalls, cm, test_dur = utils.eval_sklearn_clf(clf, test_images, test_labels)
+    accuracy, precisions, recalls, cm, cm_examples, test_dur = utils.eval_sklearn_clf(clf, test_images, test_labels)
     print(f"SVM accuracy: {accuracy}")
     print(f"SVM training duration: {train_dur}")
     print(f"SVM test duration: {test_dur}")
