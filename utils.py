@@ -12,13 +12,18 @@ def eval_sklearn_clf(clf, X, y):
     start = time.time()
     pred = clf.predict(X)
     dur = time.time()-start
+
+    # Find examples of (mis)classification for each combination
+    cm_examples = np.zeros((10,10,28,28))
+    for x,yi,predi in zip(X,y,pred):
+        cm_examples[int(yi), int(predi)] = np.reshape(x, (28,28))
     
     cm = confusion_matrix(y, pred)
     precisions = np.diag(cm) / np.sum(cm, axis=1)
     recalls = np.diag(cm) / np.sum(cm, axis=0)
     accuracy = np.sum(np.diag(cm)) / np.sum(cm)
     ncorr = sum([1 for y_pred, label in zip(pred, y) if y_pred == label])
-    return accuracy, precisions, recalls, cm, dur
+    return accuracy, precisions, recalls, cm, cm_examples, dur
 
 
 #credit: https://mattpetersen.github.io/load-mnist-with-numpy

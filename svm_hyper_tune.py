@@ -17,7 +17,7 @@ def main(args):
         {"kernel": ["linear"], "C": [0.01, 0.1, 1, 10, 100, 1000]},
     ]
     start = time.time()
-    clf = GridSearchCV(SVC(), tuned_parameters, scoring='accuracy')
+    clf = GridSearchCV(SVC(cache_size=200), tuned_parameters, scoring='accuracy')
     clf.fit(train_images, train_labels)
     optimization_dur = time.time()-start
     joblib.dump(clf, args.model_name)
