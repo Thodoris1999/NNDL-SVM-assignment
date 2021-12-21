@@ -2,21 +2,29 @@
 import argparse
 import time
 from sklearn.svm import SVC, LinearSVC
+from sklearn.decomposition import PCA
+from sklearn.pipeline import Pipeline
 import numpy as np
 import joblib
 
 import utils
 
 def train_svm(X, y, params=None):
-    clf = SVC()
+    pca_variance = 0.9
+    pca = PCA(n_components=pca_variance, svd_solver='full')
+    svm = SVC(cache_size=200)
+    pipe = Pipeline([
+        ('reduce_dim', pca), 
+        ('clf', svm)
+        ])
     if params is not None:
-        clf.set_params(**params)
-    clf.fit(X, y)
-    return clf
+        pipe.set_params(**params)
+    pipe.fit(X, y)
+    return pipe
 
 def main(args):
     train_images, train_labels, test_images, test_labels = utils.mnist()
-    params = {"kernel": "rbf", "C": 10, "gamma": 0.01}
+    params = {"clf__kernel": "rbf", "clf__C": 10, "clf__gamma": 0.01}
 
     start = time.time()
     clf = train_svm(train_images, train_labels, params)

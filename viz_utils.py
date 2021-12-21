@@ -39,3 +39,76 @@ def viz_cm_examples(cm_examples):
             ax.get_xaxis().set_visible(False)
             img = 255*img.reshape(28,28)
             ax.imshow(img)
+
+def plot_cv_results_with_stdev(cv_results):
+    pass
+    Cs_rbf = [1, 10, 100, 1000]
+    Cs_linear = [0.01, 0.1, 1, 10, 100, 1000]
+    # plot test scores
+    gammae_1_score = cv_results['mean_test_score'][0:4]
+    gammae_1_score_std = cv_results['std_test_score'][0:4]
+    gammae_2_score = cv_results['mean_test_score'][4:8]
+    gammae_2_score_std = cv_results['std_test_score'][4:8]
+    gammae_3_score = cv_results['mean_test_score'][8:12]
+    gammae_3_score_std = cv_results['std_test_score'][8:12]
+    gammae_4_score = cv_results['mean_test_score'][12:16]
+    gammae_4_score_std = cv_results['std_test_score'][12:16]
+    linear_score = cv_results['mean_test_score'][16:22]
+    linear_score_std = cv_results['std_test_score'][16:22]
+    fig = plt.figure()
+    ax = fig.add_subplot(111)
+    ax.set_xscale('log')
+    plt.xlabel('C (regularization parameter)')
+    plt.ylabel('accuracy')
+    plt.errorbar(Cs_rbf, gammae_1_score, yerr=gammae_1_score_std, label='RBF, gamma=0.1')
+    plt.errorbar(Cs_rbf, gammae_2_score, yerr=gammae_2_score_std, label='RBF, gamma=0.01')
+    plt.errorbar(Cs_rbf, gammae_3_score, yerr=gammae_3_score_std, label='RBF, gamma=0.001')
+    plt.errorbar(Cs_rbf, gammae_4_score, yerr=gammae_4_score_std, label='RBF, gamma=0.0001')
+    plt.errorbar(Cs_linear, linear_score, yerr=linear_score_std, label='linear kerneal')
+    plt.legend(loc='best')
+
+    # plot fit time
+    gammae_1_score = cv_results['mean_fit_time'][0:4]
+    gammae_1_score_std = cv_results['std_fit_time'][0:4]
+    gammae_2_score = cv_results['mean_fit_time'][4:8]
+    gammae_2_score_std = cv_results['std_fit_time'][4:8]
+    gammae_3_score = cv_results['mean_fit_time'][8:12]
+    gammae_3_score_std = cv_results['std_fit_time'][8:12]
+    gammae_4_score = cv_results['mean_fit_time'][12:16]
+    gammae_4_score_std = cv_results['std_fit_time'][12:16]
+    linear_score = cv_results['mean_fit_time'][16:22]
+    linear_score_std = cv_results['std_fit_time'][16:22]
+    fig = plt.figure()
+    ax = fig.add_subplot(111)
+    ax.set_xscale('log')
+    plt.xlabel('C (regularization parameter)')
+    plt.ylabel('train time (seconds)')
+    plt.errorbar(Cs_rbf, gammae_1_score, yerr=gammae_1_score_std, label='RBF, gamma=0.1')
+    plt.errorbar(Cs_rbf, gammae_2_score, yerr=gammae_2_score_std, label='RBF, gamma=0.01')
+    plt.errorbar(Cs_rbf, gammae_3_score, yerr=gammae_3_score_std, label='RBF, gamma=0.001')
+    plt.errorbar(Cs_rbf, gammae_4_score, yerr=gammae_4_score_std, label='RBF, gamma=0.0001')
+    plt.errorbar(Cs_linear, linear_score, yerr=linear_score_std, label='linear kerneal')
+    plt.legend(loc='best')
+
+    # plot test time
+    gammae_1_score = cv_results['mean_score_time'][0:4]
+    gammae_1_score_std = cv_results['std_score_time'][0:4]
+    gammae_2_score = cv_results['mean_score_time'][4:8]
+    gammae_2_score_std = cv_results['std_score_time'][4:8]
+    gammae_3_score = cv_results['mean_score_time'][8:12]
+    gammae_3_score_std = cv_results['std_score_time'][8:12]
+    gammae_4_score = cv_results['mean_score_time'][12:16]
+    gammae_4_score_std = cv_results['std_score_time'][12:16]
+    linear_score = cv_results['mean_score_time'][16:22]
+    linear_score_std = cv_results['std_score_time'][16:22]
+    fig = plt.figure()
+    ax = fig.add_subplot(111)
+    ax.set_xscale('log')
+    plt.xlabel('C (regularization parameter)')
+    plt.ylabel('test time (seconds)')
+    plt.errorbar(Cs_rbf, gammae_1_score, yerr=gammae_1_score_std, label='RBF, gamma=0.1')
+    plt.errorbar(Cs_rbf, gammae_2_score, yerr=gammae_2_score_std, label='RBF, gamma=0.01')
+    plt.errorbar(Cs_rbf, gammae_3_score, yerr=gammae_3_score_std, label='RBF, gamma=0.001')
+    plt.errorbar(Cs_rbf, gammae_4_score, yerr=gammae_4_score_std, label='RBF, gamma=0.0001')
+    plt.errorbar(Cs_linear, linear_score, yerr=linear_score_std, label='linear kerneal')
+    plt.legend(loc='best')

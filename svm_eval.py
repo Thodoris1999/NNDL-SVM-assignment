@@ -12,9 +12,14 @@ def main(args):
     train_images, train_labels, test_images, test_labels = utils.mnist()
 
     accuracy, precisions, recalls, cm, cm_examples, test_dur = utils.eval_sklearn_clf(clf, test_images, test_labels)
+    best_svm = clf.best_estimator_
+    print(f"SVM number of support vectors per class: {best_svm.n_support_}")
     print(f"SVM accuracy: {accuracy}")
     print(f"SVM testing duration: {test_dur}")
     viz_utils.viz_cm_examples(cm_examples)
+
+    viz_utils.plot_cv_results_with_stdev(clf.cv_results_)
+    
     plt.show()
 
 if __name__ == '__main__':
